@@ -1,6 +1,7 @@
 # Temporary files.
 .#*
 package-lock.json
+build
 
 # Log files.
 *.log
