@@ -11,6 +11,7 @@ var fs        = require("fs");
 var path      = require("path");
 var sharp     = require("sharp");
 var schedule  = require("node-schedule");
+var builder   = require('xmlbuilder');
 
 var app       = express();
 
@@ -38,7 +39,6 @@ if(process.env.GALLERY_URL) {
         loadingCompleted: true,
         photos: images,
         timer: slideshow_timer,
-        image_styles: image_styles,
         transition: transition
       });
 
@@ -47,28 +47,9 @@ if(process.env.GALLERY_URL) {
         loadingCompleted: false,
         photos: [],
         timer: slideshow_timer,
-        image_styles: image_styles,
         transition: transition
       });
     }
-
-  });
-
-  // Get the next image in the array
-  router.get("/img/:id", function(req, res) {
-
-    var next = {};
-    if (req.params.id < images.length ) {
-      // return next image on the list
-      next.img = images[req.params.id++];
-      next.id = req.params.id++;
-    } else {
-      // return first image
-      next.img = images[0];
-      next.id = 0;
-    }
-
-    res.send(next);
 
   });
 
@@ -86,16 +67,6 @@ if(process.env.GALLERY_URL) {
     var slideshow_timer = parseInt(process.env.GALLERY_SLIDESHOW_DELAY);
   }
 
-  // Set photo scaling
-  var image_styles = "cover"; // default value
-  if (process.env.GALLERY_IMAGE_STYLE) {
-    var styles = ["contain", "cover"];
-    var container = process.env.GALLERY_IMAGE_STYLE.toLowerCase();
-    if (styles.includes(container)) {
-      image_styles = container;
-    }
-  } 
-
   // Gallery transition effect
   var transition = "fade" ; // default value
   if (process.env.GALLERY_EFFECT) {
@@ -112,12 +83,6 @@ if(process.env.GALLERY_URL) {
   if (process.env.CRON_SCHEDULE) {
     cronSchedule = process.env.CRON_SCHEDULE;
     console.log("🐉 - Scheduler configured for "+cronSchedule);
-  }
-
-  // Get resize width
-  var maxWidth = 1000; // default value
-  if (process.env.RESIZE_WIDTH) {
-    maxWidth = parseInt(process.env.RESIZE_WIDTH);
   }
 
   // Get image compress quality
@@ -276,11 +241,25 @@ function fetchImages(albumURL) {
 
               // Download images
               console.log("[file"+i+".jpg] - Downloading");
-              downloadFile(photo.url, "file" + i + ".jpg");
+              if (photo.mediaAssetType == 'video') {
+                downloadFile(photo.url, "file" + i + ".mp4");
+              } else {
+                downloadFile(photo.url, "file" + i + ".jpg");
+              }
               i++;
             }
 
-            images = listImagesInDir(path.dirname(require.main.filename));
+            images = listImagesInDirSync('.');
+            var root = builder.create('playlist');
+            images.forEach(image => {
+              var slide = root.ele('slide');
+              slide.ele('file', image)
+            });
+             
+            var xml = root.end({ pretty: true});
+            fs.writeFile(path.dirname(require.main.filename) + '/views/playlist.xml', xml, function (err) {
+              if (err) return console.log(err);
+            });
           }
         };
 
@@ -443,7 +422,7 @@ function getPhotoMetadata(baseUrl) {
 }
 
 /**
- * Geg ULR for images
+ * Get ULR for images
  * @param {String} baseUrl Directory to check for images as string.
  * @param {String} photoGuids
  */
@@ -529,6 +508,12 @@ function decorateUrls(metadata, urls) {
  * @param {String} cb Callback function. 
  */
 function downloadFile(url, dest, cb) {
+  fs.mkdir('apple', { recursive: true }, err => {
+    if(err){
+      console.log(err.message);
+    }
+  });
+
   const file = fs.createWriteStream(dest);
   const sendReq = request.get(url);
 
@@ -542,7 +527,7 @@ function downloadFile(url, dest, cb) {
   });
 
   // close() is async, call cb after close completes
-  file.on("finish", () => file.close(resizeFile(dest, maxWidth)));
+  file.on("finish", () => file.close());
 
   // check for request errors
   sendReq.on("error", err => {
@@ -555,41 +540,6 @@ function downloadFile(url, dest, cb) {
     fs.unlink(dest); // Delete the file async. (But we don't check the result)
     console.log(err.message);
   });
-}
-
-/**
- * Resize image with specific width
- * @param {String} imageFile Full path of image file.
- * @param {Integer} maxWidth Max image width in pixels, default to 1000 px.
- */
-function resizeFile(imageFile, maxWidth = 1000) {
-  console.log("["+imageFile+"] - Analyzing");
-
-  try {
-    if (fs.existsSync(imageFile)) {
-
-      // Resize image
-      console.log("["+imageFile+"] - Resizing to "+ maxWidth + "px and compressing it to "+ compressQuality +"%.");
-      sharp(imageFile)
-        .resize(maxWidth,maxWidth, { fit: 'inside', withoutEnlargement: true })
-        .jpeg({
-          quality: compressQuality,
-          chromaSubsampling: '4:4:4'
-        })
-        .toBuffer((err, buffer) => {
-          if (err) {
-            console.log(imageFile + " - " + err);
-          }
-          fs.writeFile(imageFile, buffer, (e) => {
-            if(e){
-              console.log("Error saving image to file: "+e);
-            }
-          });
-        });
-    }
-  } catch (err) {
-    console.error(err);
-  }
 }
 
 /**
@@ -623,7 +573,7 @@ function listImagesInDirSync (directory) {
     .filter(d => !d.isDirectory() && d.isFile())                                      // remove directories
     .map(d => d.name)                                                                 // file name
     .filter(f => !(/(^|\/)\.[^\/\.]/g).test(f))                                       // remove files starting with . (macOS .DS_STORE for example)
-    .filter(f => [".jpg", ".jpeg", ".gif", ".png", ".bmp"].includes(path.extname(f))) // remove files that are not an image
+    .filter(f => [".jpg", ".jpeg", ".gif", ".png", ".bmp", ".mp4"].includes(path.extname(f))) // remove files that are not an image
     .map(f => `${directory}/${f}`);                                                   // rebuild file path
 
   return files;

@@ -13,3 +13,7 @@ dropbox/
 temp.js
 #OSX hidden metadata file
 .DS_Store
+
+*.jpg
+*.mp4
+views/playlist.xml
