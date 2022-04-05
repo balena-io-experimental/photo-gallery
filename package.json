@@ -2,6 +2,7 @@
   "name": "album-slideshow",
   "version": "1.0.0",
   "description": "Album Slideshow.",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

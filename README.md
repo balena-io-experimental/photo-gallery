@@ -27,17 +27,15 @@ Place your photos on a USB stick and plug it into the Raspberry Pi. Each time al
 
 ## Usage
 
-`docker-compose.yml`
+Include this snippet in your `docker-compose.yml` file under 'services':
 
 ```yml
-version: "2.1"
-services:
-  photos:
-    privileged: true
-    restart: always
-    image: balenablocks/photo-gallery:<arch>
-    ports:
-      - "8888"
+photos:
+  image: bhcr.io/balenablocks/photo-gallery-<arch>/<version> # where <arch> is one of aarch64, armv7hf, rpi or amd64 and <version>(optional) is a specific version of this block
+  privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+  restart: always
+  ports:
+    - "8888"
 ```
 
 e.g For running on Raspberry Pi 3B+ which is `armv7hf` use `image:balenablocks/photo-gallery:armv7hf`
@@ -60,7 +58,7 @@ services:
 `Dockerfile.template`
 
 ```dockerfile
-FROM balenablocks/photo-gallery:%%BALENA_ARCH%%
+FROM bh.cr/balenablocks/photo-gallery-%%BALENA_ARCH%%
 ```
 
 ### Supported Architectures
