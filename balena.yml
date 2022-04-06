@@ -5,7 +5,8 @@ description: >-
   and Apple Photos. The images are downloaded automatically and auto updated in
   case of changes.
 post-provisioning: >-
-  ## Usage instructions Include this snippet in your docker-compose.yml file
+  ## Usage instructions 
+  Include this snippet in your docker-compose.yml file
   under 'services':
     
     ```yml
@@ -16,7 +17,8 @@ post-provisioning: >-
       ports:
         - "8888"
     ```
-  ## Supported Albums Please check the [readme](https://github.com/balenablocks/photo-gallery#supported-albums) for instructions on how to setup Google photos, Dropbox, Apple iCloud or USB drive
+  ## Supported Albums 
+  Please check the [readme](https://github.com/balenablocks/photo-gallery#supported-albums) for instructions on how to setup Google photos, Dropbox, Apple iCloud or USB drive
 version: 0.0.3
 type: sw.application
 assets:
