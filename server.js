@@ -78,8 +78,7 @@ if(process.env.GALLERY_URL) {
 
   // Get image variables
   var images = [];
-  fetchImages(process.env.GALLERY_URL);
-
+  
   // Set slideshow time
   var slideshow_timer = 10000; // default value
   if (process.env.GALLERY_SLIDESHOW_DELAY) {
@@ -132,6 +131,9 @@ if(process.env.GALLERY_URL) {
     var shuffleGallery = (process.env.SHUFFLE_SLIDESHOW == "true");
   }
 
+  // load images
+  fetchImages(process.env.GALLERY_URL);
+  
   // Server Start
   // =============================================================================
   app.listen(port);
