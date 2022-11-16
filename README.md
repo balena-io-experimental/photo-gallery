@@ -1,4 +1,4 @@
-# balenablocks/photo-gallery
+# photo-gallery
 
 A blocks that allows you to display a photo slideshow on a webpage over a web server. Out of the box you can use Google Photo Albums, Dropbox Photo Album and Apple Photos. The images are downloaded automatically and auto updated in case of changes.
 
@@ -31,14 +31,14 @@ Include this snippet in your `docker-compose.yml` file under 'services':
 
 ```yml
 photos:
-  image: bhcr.io/balenablocks/photo-gallery-<arch>/<version> # where <arch> is one of aarch64, armv7hf, rpi or amd64 and <version>(optional) is a specific version of this block
+  image: bh.cr/balenalabs/photo-gallery-<arch>/<version> # where <arch> is one of aarch64, armv7hf, rpi or amd64 and <version>(optional) is a specific version of this block
   privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
   restart: always
   ports:
     - "8888"
 ```
 
-e.g For running on Raspberry Pi 3B+ which is `armv7hf` use `image:balenablocks/photo-gallery:armv7hf`
+e.g For running on Raspberry Pi 3B+ which is `armv7hf` use `image:bh.cr/balenalabs/photo-gallery-armv7hf`
 
 You can also set your `docker-compose.yml` to build a `Dockerfile.template` file, and use the build variable `%%BALENA_ARCH%%` so that the correct image is automatically built for your device.
 
@@ -58,7 +58,7 @@ services:
 `Dockerfile.template`
 
 ```dockerfile
-FROM bh.cr/balenablocks/photo-gallery-%%BALENA_ARCH%%
+FROM bh.cr/balenalabs/photo-gallery-%%BALENA_ARCH%%
 ```
 
 ### Supported Architectures

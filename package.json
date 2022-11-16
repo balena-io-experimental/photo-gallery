@@ -1,11 +1,11 @@
 {
-  "name": "album-slideshow",
+  "name": "photo-gallery",
   "version": "1.0.0",
-  "description": "Album Slideshow.",
+  "description": "photo-gallery balena block",
   "private": true,
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "exit 0",
     "start": "node server.js"
   },
   "repository": {

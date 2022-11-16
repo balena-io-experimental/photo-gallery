@@ -18,7 +18,7 @@ function build_and_push_image () {
 }
 
 # YOu can pass in a repo (such as a test docker repo) or accept the default
-DOCKER_REPO=${1:-balenablocks}
+DOCKER_REPO=${1:-balenalabs}
 REPO_NAME="photo-gallery"
 
 build_and_push_image "aarch64" "linux/arm64"
