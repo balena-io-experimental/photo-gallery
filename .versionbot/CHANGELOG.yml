@@ -1,0 +1,51 @@
+- commits:
+    - subject: moving from balenablocks to balena-labs-projects
+      hash: 322276cf58af65edd62d2fa09559faa887c73b93
+      body: ""
+      footer:
+        Signed-off-by: Flynn Joffray <flynn@balena.io>
+        signed-off-by: Flynn Joffray <flynn@balena.io>
+        Change-type: patch
+        change-type: patch
+      author: Flynn Joffray
+      nested: []
+  version: 0.0.4
+  title: ""
+  date: 2022-11-16T02:50:17.316Z
+- version: 0.0.3
+  date: 2022-04-05T13:59:05Z
+  commits:
+    - hash: 882306c5b03f4f83a27f01144bcd9945e20f25cf
+      author: Rahul Thakoor
+      subject: "patch: Use balenahub registry"
+      body: null
+- version: 0.0.2
+- date: 2021-02-26T18:22:01Z
+- commits:
+    - hash: 1b7b9740ec61195891de3c9a92f468fb8190cb83
+- commits:
+    - author: Tomás Migone
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Tomás Migone <tomas@balena.io>
+- commits:
+    - subject: "meta: enable versionist"
+- commits:
+    - body: null
+- commits:
+    - hash: b94efff0dd5cc92ada88c0a283edfe8471760105
+- commits:
+    - author: Tomás Migone
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Tomás Migone <tomas@balena.io>
+- commits:
+    - subject: "meta: enable versionist"
+- commits:
+    - body: null

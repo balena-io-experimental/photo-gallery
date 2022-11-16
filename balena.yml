@@ -1,12 +1,12 @@
 name: photo-gallery
 description: >-
-  A block that allows you to display a photo slideshow on a webpage over a web
-  server. Out of the box you can use Google Photo Albums, Dropbox Photo Album
-  and Apple Photos. The images are downloaded automatically and auto updated in
-  case of changes.
+  A block that allows you to display a photo slideshow on a webpage
+  over a web server. Out of the box you can use Google Photo Albums, Dropbox
+  Photo Album and Apple Photos. The images are downloaded automatically and auto
+  updated in case of changes.
 post-provisioning: >-
-  ## Usage instructions Include this snippet in your docker-compose.yml file
-  under 'services':
+  ## Usage instructions Include this snippet in your
+  docker-compose.yml file under 'services':
     
     ```yml
     photos:
@@ -17,7 +17,7 @@ post-provisioning: >-
         - "8888"
     ```
   ## Supported Albums Please check the [readme](https://github.com/balena-labs-projects/photo-gallery#supported-albums) for instructions on how to setup Google photos, Dropbox, Apple iCloud or USB drive
-version: 0.0.3
+version: 0.0.4
 type: sw.application
 assets:
   repository:
