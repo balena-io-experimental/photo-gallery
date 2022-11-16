@@ -1,11 +1,14 @@
 {
-  "name": "album-slideshow",
+  "name": "photo-gallery",
   "version": "1.0.0",
-  "description": "Album Slideshow.",
+  "description": "photo-gallery balena block",
   "private": true,
   "main": "server.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "exit 0",
     "start": "node server.js"
   },
   "repository": {
@@ -30,7 +33,7 @@
     "lodash.chunk": "^4.2.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.3",
-    "sharp":"0.22.1",
+    "sharp": "0.22.1",
     "node-schedule": "1.3.2"
   }
 }

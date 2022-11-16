@@ -10,24 +10,24 @@ post-provisioning: >-
     
     ```yml
     photos:
-      image: bhcr.io/balenablocks/photo-gallery-<arch>/<version> # where <arch> is one of aarch64, armv7hf, rpi or amd64 and <version>(optional) is a specific version of this block
+      image: bh.cr/balenalabs/photo-gallery-<arch>/<version> # where <arch> is one of aarch64, armv7hf, rpi or amd64 and <version>(optional) is a specific version of this block
       privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
       restart: always
       ports:
         - "8888"
     ```
-  ## Supported Albums Please check the [readme](https://github.com/balenablocks/photo-gallery#supported-albums) for instructions on how to setup Google photos, Dropbox, Apple iCloud or USB drive
+  ## Supported Albums Please check the [readme](https://github.com/balena-labs-projects/photo-gallery#supported-albums) for instructions on how to setup Google photos, Dropbox, Apple iCloud or USB drive
 version: 0.0.3
 type: sw.application
 assets:
   repository:
     type: blob.asset
     data:
-      url: 'https://github.com/balenablocks/photo-gallery'
+      url: 'https://github.com/balena-labs-projects/photo-gallery'
   logo:
     type: blob.asset
     data:
-      url: 'https://raw.githubusercontent.com/balenablocks/photo-gallery/master/logo.png'
+      url: 'https://raw.githubusercontent.com/balena-labs-projects/photo-gallery/master/logo.png'
 data:
   defaultDeviceType: raspberrypi3
   supportedDeviceTypes:
